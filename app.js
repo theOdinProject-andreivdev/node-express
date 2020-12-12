@@ -7,6 +7,18 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+let mongoose = require("mongoose");
+let mongoDB = 'mongodb+srv://andreivdev:hack9faih*suf2JEAL@cluster0.mnqgf.mongodb.net/node-express?retryWrites=true&w=majority';
+
+mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+
+//Get the default connection
+var db = mongoose.connection;
+
+//Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+
 var app = express();
 
 // view engine setup

@@ -6,11 +6,13 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var catalogRouter = require('./routes/catalog'); //Import routes for "catalog" area of site
 
-let mongoose = require("mongoose");
-let mongoDB = 'mongodb+srv://andreivdev:hack9faih*suf2JEAL@cluster0.mnqgf.mongodb.net/node-express?retryWrites=true&w=majority';
+let mongoose = require('mongoose');
+let mongoDB =
+  'mongodb+srv://andreivdev:XDn875vGUXEgV2w7@cluster0.mnqgf.mongodb.net/node-express?retryWrites=true&w=majority';
 
-mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
 //Get the default connection
 var db = mongoose.connection;
@@ -18,10 +20,10 @@ var db = mongoose.connection;
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-
 var app = express();
 
 // view engine setup
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -33,14 +35,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/catalog', catalogRouter); // Add catalog routes to middleware chain.
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

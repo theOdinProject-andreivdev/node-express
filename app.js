@@ -8,9 +8,9 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var catalogRouter = require('./routes/catalog'); //Import routes for "catalog" area of site
 
+require('dotenv').config();
 let mongoose = require('mongoose');
-let mongoDB =
-  'mongodb+srv://andreivdev:XDn875vGUXEgV2w7@cluster0.mnqgf.mongodb.net/node-express?retryWrites=true&w=majority';
+let mongoDB = process.env.DB_KEY;
 
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
